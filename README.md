@@ -1,4 +1,4 @@
-# Calendar App
+# Calendar Api
 
 ## 프로젝트 설명
 
@@ -28,7 +28,7 @@ React.js를 사용하여 개발한 일정 관리(캘린더) 애플리케이션�
 
 1. **프로젝트 클론**
    ```bash
-   git clone https://github.com/kyj001208/Calendar-API.git
+   git clone https://github.com/kyj001208/Calendar-API_front.git
 
 2. **의존성 설치**
 cd calendar-app
