@@ -11,26 +11,26 @@ export default function Calendar() {
   const [eventDescription, setEventDescription] = useState('');
   const [editingEvent, setEditingEvent] = useState(null);
 
-  // 초기 일정 데이터 가져오기
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const formattedMonth = currentDate.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit' });
-        const response = await fetch(`http://localhost:8080/list?date=${formattedMonth}-01&specificDay=false`);
-        if (response.ok) {
-          const data = await response.json();
-          setEvents(data);  // 월 전체 이벤트를 가져옴
-        } else {
-          alert('일정 조회에 실패했습니다.');
-        }
-      } catch (error) {
-        console.error('Error fetching events:', error);
-        alert('일정 조회 중 오류가 발생했습니다.');
+  // 일정 데이터를 가져오는 함수
+  const fetchEvents = async () => {
+    try {
+      const formattedMonth = currentDate.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit' });
+      const response = await fetch(`http://localhost:8080/list?date=${formattedMonth}-01&specificDay=false`);
+      if (response.ok) {
+        const data = await response.json();
+        setEvents(data);
+      } else {
+        alert('일정 조회에 실패했습니다.');
       }
-    };
+    } catch (error) {
+      console.error('Error fetching events:', error);
+      alert('일정 조회 중 오류가 발생했습니다.');
+    }
+  };
 
+  useEffect(() => {
     fetchEvents();
-  }, [currentDate]); // currentDate가 변경될 때마다 이벤트를 가져옴
+  }, [currentDate]);
 
   const lastMonth = () => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
@@ -61,44 +61,19 @@ export default function Calendar() {
     return daysInMonth;
   };
 
-  // 각 날짜에 해당하는 이벤트들 가져오기
   const getEventsForDay = (day) => {
     if (!day) return [];
-
     const dateString = new Date(currentDate.getFullYear(), currentDate.getMonth(), day).toLocaleDateString('en-CA');
-    return events.filter(event => event.selectedDate === dateString);  // 각 날짜에 해당하는 이벤트 필터링
+    return events.filter((event) => event.selectedDate === dateString);
   };
 
   const handleDateClick = (day) => {
     if (day) {
       const newSelectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-      setSelectedDate(newSelectedDate);  // 날짜 선택 시 selectedDate 업데이트
-      setEditingEvent(events.find(event => event.selectedDate === newSelectedDate.toLocaleDateString('en-CA')));
+      setSelectedDate(newSelectedDate);
+      setEditingEvent(events.find((event) => event.selectedDate === newSelectedDate.toLocaleDateString('en-CA')));
       setModalOpen(true);
     }
-  };
-
-  const handleAddEvent = () => {
-    const newEvent = {
-      selectedDate: selectedDate.toLocaleDateString('en-CA'),
-      title: eventTitle,
-      description: eventDescription,
-    };
-    setEvents(prev => [...prev, newEvent]);  // 새로운 이벤트를 기존 목록에 추가
-    setModalOpen(false);
-    setEventTitle('');
-    setEventDescription('');
-  };
-
-  const handleEditEvent = () => {
-    const updatedEvents = events.map(event =>
-      event === editingEvent ? { ...event, title: eventTitle, description: eventDescription } : event
-    );
-    setEvents(updatedEvents);  // 이벤트 업데이트 후 저장
-    setModalOpen(false);
-    setEditingEvent(null);
-    setEventTitle('');
-    setEventDescription('');
   };
 
   return (
@@ -125,9 +100,7 @@ export default function Calendar() {
               <>
                 <span className="day-number">{day}</span>
                 {getEventsForDay(day).map((event, idx) => (
-                  <div key={idx} className="event-title">
-                    {event.title}  {/* 제목만 표시 */}
-                  </div>
+                  <div key={idx} className="event-title">{event.title}</div>
                 ))}
               </>
             )}
@@ -143,11 +116,11 @@ export default function Calendar() {
           setEventTitle={setEventTitle}
           setEventDescription={setEventDescription}
           closeModal={() => setModalOpen(false)}
-          handleAddEvent={handleAddEvent}
-          handleEditEvent={handleEditEvent}
+          fetchEvents={fetchEvents}
           editingEvent={editingEvent}
         />
       )}
     </div>
   );
 }
+
