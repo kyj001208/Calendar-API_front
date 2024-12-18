@@ -83,6 +83,20 @@
   margin: 0;
 }
 
+.modal {
+  position: fixed; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000; 
+}
+
 .modal button {
   padding: 10px 15px;
   background-color: #d1a7e8; 
