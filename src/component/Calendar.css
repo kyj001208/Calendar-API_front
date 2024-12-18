@@ -1,0 +1,119 @@
+.calendar-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.calendar-header button {
+  padding: 10px;
+  background-color: #d1a7e8;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.calendar-header button:hover {
+  background-color: #a67cc6;
+}
+
+.calendar-header h2 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.calendar-day {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #ffffff;
+  transition: background-color 0.3s, transform 0.3s;
+  height: 65px; 
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-between; 
+}
+
+.calendar-day:hover {
+  background-color: #f0f8ff;
+  transform: scale(1.05);
+}
+
+.calendar-day.empty-day {
+  background-color: #e0e0e0;
+  cursor: default;
+}
+
+.calendar-day span {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.calendar-day .event-title {
+  font-size: 12px;
+  color: #d1a7e8;
+  margin: 2px 0;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+}
+
+.calendar-day ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.modal button {
+  padding: 10px 15px;
+  background-color: #d1a7e8; 
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 5px;
+}
+
+
+.modal button:hover {
+  background-color: #a67cc6; 
+}
+
+
+.modal .button-group {
+  display: flex;
+  flex-direction: row; 
+  justify-content: space-between; 
+  gap: 10px; 
+}
+
+
+.modal input,
+.modal textarea {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 200px;
+}
